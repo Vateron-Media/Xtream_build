@@ -39,7 +39,7 @@ cd nginx-1.26.1
 
 Configure binaries
 ```
-./configure --prefix=/home/xtreamcodes/nginx/ --http-client-body-temp-path=/home/xtreamcodes/tmp/client_temp --http-proxy-temp-path=/home/xtreamcodes/tmp/proxy_temp --http-fastcgi-temp-path=/home/xtreamcodes/tmp/fastcgi_temp --lock-path=/home/xtreamcodes/tmp/nginx.lock --http-uwsgi-temp-path=/home/xtreamcodes/tmp/uwsgi_temp --http-scgi-temp-path=/home/xtreamcodes/tmp/scgi_temp --conf-path=/home/xtreamcodes/nginx/conf/nginx.conf --error-log-path=/home/xtreamcodes/logs/error.log --http-log-path=/home/xtreamcodes/logs/access.log --pid-path=/home/xtreamcodes/nginx/nginx.pid --with-http_ssl_module --with-http_realip_module --with-http_addition_module --with-http_sub_module --with-http_dav_module --with-http_gunzip_module --with-http_gzip_static_module --with-http_v2_module --with-ld-opt='-Wl,-z,relro -Wl,--as-needed -static' --with-pcre --with-http_random_index_module --with-http_secure_link_module --with-http_stub_status_module --with-http_auth_request_module --with-threads --with-mail --with-mail_ssl_module --with-file-aio --with-cpu-opt=generic --with-cc-opt='-static -static-libgcc -g -O2 -Wformat -Wall' --with-openssl=/root/openssl-3.3.1
+./configure --prefix=/home/xtreamcodes/bin/nginx --http-client-body-temp-path=/home/xtreamcodes/tmp/client_temp --http-proxy-temp-path=/home/xtreamcodes/tmp/proxy_temp --http-fastcgi-temp-path=/home/xtreamcodes/tmp/fastcgi_temp --lock-path=/home/xtreamcodes/tmp/nginx.lock --http-uwsgi-temp-path=/home/xtreamcodes/tmp/uwsgi_temp --http-scgi-temp-path=/home/xtreamcodes/tmp/scgi_temp --conf-path=/home/xtreamcodes/bin/nginx/conf/nginx.conf --error-log-path=/home/xtreamcodes/logs/error.log --http-log-path=/home/xtreamcodes/logs/access.log --pid-path=/home/xtreamcodes/bin/nginx/nginx.pid --with-http_ssl_module --with-http_realip_module --with-http_addition_module --with-http_sub_module --with-http_dav_module --with-http_gunzip_module --with-http_gzip_static_module --with-http_v2_module --with-ld-opt='-Wl,-z,relro -Wl,--as-needed -static' --with-pcre --with-http_random_index_module --with-http_secure_link_module --with-http_stub_status_module --with-http_auth_request_module --with-threads --with-mail --with-mail_ssl_module --with-file-aio --with-cpu-opt=generic --with-cc-opt='-static -static-libgcc -g -O2 -Wformat -Wall' --with-openssl=/root/openssl-3.3.1
 ```
 
 Build binaries
@@ -69,7 +69,7 @@ cd nginx-1.26.1
 
 Configure binaries
 ```
-./configure --prefix=/home/xtreamcodes/nginx_rtmp/ --lock-path=/home/xtreamcodes/nginx_rtmp/nginx_rtmp.lock --conf-path=/home/xtreamcodes/nginx_rtmp/conf/nginx.conf --error-log-path=/home/xtreamcodes/logs/rtmp_error.log --http-log-path=/home/xtreamcodes/logs/rtmp_access.log --pid-path=/home/xtreamcodes/nginx_rtmp/nginx.pid --add-module=/root/nginx-rtmp-module-1.2.2 --with-ld-opt='-Wl,-z,relro -Wl,--as-needed -static' --with-pcre --without-http_rewrite_module --with-file-aio --with-ipv6 --with-cpu-opt=generic --with-cc-opt='-static -static-libgcc -g -O2 -Wformat -Wall' --with-openssl=/root/openssl-3.3.1
+./configure --prefix=/home/xtreamcodes/bin/nginx_rtmp --lock-path=/home/xtreamcodes/bin/nginx_rtmp/nginx_rtmp.lock --conf-path=/home/xtreamcodes/bin/nginx_rtmp/conf/nginx.conf --error-log-path=/home/xtreamcodes/logs/rtmp_error.log --http-log-path=/home/xtreamcodes/logs/rtmp_access.log --pid-path=/home/xtreamcodes/bin/nginx_rtmp/nginx.pid --add-module=/root/nginx-rtmp-module-1.2.2 --with-ld-opt='-Wl,-z,relro -Wl,--as-needed -static' --with-pcre --without-http_rewrite_module --with-file-aio --with-ipv6 --with-cpu-opt=generic --with-cc-opt='-static -static-libgcc -g -O2 -Wformat -Wall' --with-openssl=/root/openssl-3.3.1
 ```
 
 Build binaries
@@ -102,7 +102,7 @@ cd php-7.3.25
 
 Configure binaries
 ```
-./configure  --prefix=/home/xtreamcodes/php --with-zlib-dir --enable-mbstring --enable-calendar --with-curl --with-gd --disable-rpath --enable-inline-optimization --with-bz2 --with-zlib --enable-sockets --enable-sysvsem --enable-sysvshm --enable-pcntl --enable-mbregex --enable-exif --enable-bcmath --with-mhash --enable-zip --with-pcre-regex --with-pdo-mysql=mysqlnd --with-mysqli=mysqlnd --with-openssl --with-fpm-user=xtreamcodes --with-fpm-group=xtreamcodes --with-libdir=/lib/x86_64-linux-gnu --with-gettext --with-xmlrpc --with-xsl --enable-opcache --enable-fpm --enable-libxml --enable-static --disable-shared --with-mcrypt
+./configure  --prefix=/home/xtreamcodes/bin/php --with-zlib-dir --enable-mbstring --enable-calendar --with-curl --with-gd --disable-rpath --enable-inline-optimization --with-bz2 --with-zlib --enable-sockets --enable-sysvsem --enable-sysvshm --enable-pcntl --enable-mbregex --enable-exif --enable-bcmath --with-mhash --enable-zip --with-pcre-regex --with-pdo-mysql=mysqlnd --with-mysqli=mysqlnd --with-openssl --with-fpm-user=xtreamcodes --with-fpm-group=xtreamcodes --with-libdir=/lib/x86_64-linux-gnu --with-gettext --with-xmlrpc --with-xsl --enable-opcache --enable-fpm --enable-libxml --enable-static --disable-shared --with-mcrypt
 ```
 
 Build binaries
