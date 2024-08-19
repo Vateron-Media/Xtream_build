@@ -9,6 +9,8 @@ print("-------------------------------------------------")
 print("Example:")
 print("Version of the previous release : v1.2.0")
 print("Enter path to Xtream_main : /home/xtream/Xtream_main")
+print("-------------------------------------------------")
+
 
 lastUpdate = input("Version of the previous release : ")
 inputPath = input("Enter path to Xtream_main : ")
@@ -42,5 +44,8 @@ with open("tmp/delete.php", "w") as f:
     f.write("<?php\n")
     for file in filesD.split("\n"):
         if file != "":
-            PHPDeleteCOmand = "if (file_exists('%s')) {\n\tunlink('%s');\n}\n" % (file, file)
+            PHPDeleteCOmand = "if (file_exists('%s')) {\n\tunlink('%s');\n}\n" % (
+                file,
+                file,
+            )
             f.write(PHPDeleteCOmand)

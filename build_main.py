@@ -2,6 +2,14 @@ import os
 import shutil
 import tarfile
 
+print("Welcome to build_main.py")
+print("This script will create main_xui.tar.gz for you")
+print("Please enter the following information:")
+print("-------------------------------------------------")
+print("Example:")
+print("Enter path to Xtream_main : /home/xtream/Xtream_main")
+print("-------------------------------------------------")
+
 # place input path to xtream_main
 input_path = input("Enter path to Xtream_main: ")
 
