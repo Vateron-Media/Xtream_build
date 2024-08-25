@@ -23,11 +23,15 @@ if not os.path.exists("tmp"):
 print("Creating update.tar.gz")
 # run comand and get output
 files = os.popen(
-    f"git --git-dir={inputPath}/.git diff-tree -r --no-commit-id --name-only --diff-filter=ACMRT {lastUpdate} main"
+    f"git --git-dir={inputPath}/.git diff-tree -r --no-commit-id --name-only --diff-filter=ACMRTU {lastUpdate} main"
 ).read()
 
 files = files.split("\n")
 files.remove("")
+files.append("update/update_bd.php")
+files.append("update/update.py")
+files.append("update/update.php")
+print(files)
 
 with tarfile.open("tmp/update.tar.gz", "w:gz") as tar:
     for file in files:

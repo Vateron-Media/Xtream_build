@@ -2,51 +2,44 @@ import os
 import shutil
 import tarfile
 
-print("Welcome to build_main.py")
-print("This script will create main_xui.tar.gz for you")
-print("Please enter the following information:")
-print("-------------------------------------------------")
-print("Example:")
-print("Enter path to Xtream_main : /home/xtream/Xtream_main")
-print("-------------------------------------------------")
+# remove folder Xtream_main/ if it exists
+if os.path.exists("Xtream_main/"):
+    shutil.rmtree("Xtream_main/")
 
-# place input path to xtream_main
-input_path = input("Enter path to Xtream_main: ")
+# create tmp folder
+if not os.path.exists("tmp"):
+    os.makedirs("tmp")
 
+# git clone
+print("Cloning Xtream_main")
+os.system("git clone https://github.com/Vateron-Media/Xtream_main.git")
 
-# remove folder build_main if it exists
-if os.path.exists("build_main"):
-    shutil.rmtree("build_main")
+# remove .git with Xtream_main/
+print("Removing trash from Xtream_main/")
 
-print("Copying folder xtream_main to build_main")
-shutil.copytree(input_path, "build_main")
-
-# remove .git with build_main
-print("Removing trash from build_main")
-
-if os.path.exists("build_main/.git"):
-    shutil.rmtree("build_main/.git")
-    print("Removed .git from build_main")
-if os.path.exists("build_main/.vscode"):
-    shutil.rmtree("build_main/.vscode")
-    print("Removed .vscode from build_main")
-if os.path.exists("build_main/.gitignore"):
-    os.remove("build_main/.gitignore")
-    print("Removed .gitignore from build_main")
-if os.path.exists("build_main/.gitattributes"):
-    os.remove("build_main/.gitattributes")
-    print("Removed .gitattributes from build_main")
-if os.path.exists("build_main/update"):
-    shutil.rmtree("build_main/update")
-    print("Removed update from build_main")
+if os.path.exists("Xtream_main/.git"):
+    shutil.rmtree("Xtream_main/.git")
+    print("Removed .git from Xtream_main/")
+if os.path.exists("Xtream_main/.vscode"):
+    shutil.rmtree("Xtream_main/.vscode")
+    print("Removed .vscode from Xtream_main/")
+if os.path.exists("Xtream_main/.gitignore"):
+    os.remove("Xtream_main/.gitignore")
+    print("Removed .gitignore from Xtream_main/")
+if os.path.exists("Xtream_main/.gitattributes"):
+    os.remove("Xtream_main/.gitattributes")
+    print("Removed .gitattributes from Xtream_main/")
+if os.path.exists("Xtream_main/update"):
+    shutil.rmtree("Xtream_main/update")
+    print("Removed update from Xtream_main/")
 
 
 print("Creating main_xui.tar.gz")
-allfile = os.listdir("build_main")
-with tarfile.open("main_xui.tar.gz", "w:gz") as tar:
+allfile = os.listdir("Xtream_main/")
+with tarfile.open("tmp/main_xui.tar.gz", "w:gz") as tar:
     for file in allfile:
-        tar.add("build_main/" + file, arcname=os.path.basename(file))
+        tar.add("Xtream_main/" + file, arcname=os.path.basename(file))
 
 
-print("Remove folder build_main")
-shutil.rmtree("build_main")
+print("Remove folder Xtream_main/")
+shutil.rmtree("Xtream_main/")
