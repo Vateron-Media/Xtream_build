@@ -33,6 +33,12 @@ if os.path.exists("Xtream_main/update"):
     shutil.rmtree("Xtream_main/update")
     print("Removed update from Xtream_main/")
 
+# delete .gitkeep everywhere
+for root, dirs, files in os.walk("Xtream_main/"):
+    for file in files:
+        if file == ".gitkeep":
+            os.remove(os.path.join(root, file))
+            print("Removed .gitkeep from " + root)
 
 print("Creating main_xui.tar.gz")
 allfile = os.listdir("Xtream_main/")
