@@ -82,7 +82,7 @@ Print version
 /root/nginx-1.26.1/objs/nginx -v
 ```
 
-## php-fpm binary
+## php binary
 Install package 
 ```
 sudo apt-get install libcurl4-gnutls-dev libbz2-dev libzip-dev
@@ -102,7 +102,7 @@ cd php-7.3.25
 
 Configure binaries
 ```
-./configure  --prefix=/home/xtreamcodes/bin/php --with-zlib-dir --enable-mbstring --enable-calendar --with-curl --with-gd --disable-rpath --enable-inline-optimization --with-bz2 --with-zlib --enable-sockets --enable-sysvsem --enable-sysvshm --enable-pcntl --enable-mbregex --enable-exif --enable-bcmath --with-mhash --enable-zip --with-pcre-regex --with-pdo-mysql=mysqlnd --with-mysqli=mysqlnd --with-openssl --with-fpm-user=xtreamcodes --with-fpm-group=xtreamcodes --with-libdir=/lib/x86_64-linux-gnu --with-gettext --with-xmlrpc --with-xsl --enable-opcache --enable-fpm --enable-libxml --enable-static --disable-shared --with-mcrypt
+./configure --prefix=/home/xtreamcodes/bin/php --with-zlib-dir --enable-mbstring --enable-calendar --with-curl --with-gd --disable-rpath --enable-inline-optimization --with-bz2 --with-zlib --enable-sockets --enable-sysvsem --enable-sysvshm --enable-pcntl --enable-mbregex --enable-exif --enable-bcmath --with-mhash --enable-zip --with-pcre-regex --with-pdo-mysql=mysqlnd --with-mysqli=mysqlnd --with-openssl --with-fpm-user=xtreamcodes --with-fpm-group=xtreamcodes --with-libdir=/lib/x86_64-linux-gnu --with-gettext --with-xmlrpc --with-xsl --enable-opcache --enable-fpm --enable-libxml --enable-static --disable-shared --with-mcrypt --with-geoip
 ```
 
 Build binaries
@@ -110,7 +110,28 @@ Build binaries
 make
 ```
 
-Out file path
+File source
+
+```
+/root/php-7.3.25/sapi/cli/php
+to
+/home/xtreamcodes/bin/php/bin/php
+```
+
 ```
 /root/php-7.3.25/sapi/fpm/php-fpm
+to
+/home/xtreamcodes/bin/php/sbin/php-fpm
+```
+
+```
+/root/php-7.3.25/sapi/phpdbg/phpdbg
+to
+/home/xtreamcodes/bin/php/bin/phpdbg
+```
+
+```
+/root/php-7.3.25/sapi/cgi/php-cgi
+to
+/home/xtreamcodes/bin/php/bin/php-cgi
 ```
