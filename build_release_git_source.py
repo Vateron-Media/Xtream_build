@@ -4,7 +4,6 @@ import tarfile
 import requests
 from tqdm import tqdm
 import zipfile
-import zipfile
 
 
 def download_file(url, filename):
@@ -28,22 +27,22 @@ while True:
     else:
         print("Invalid type")
 
-path_download_folder = f"Xtream_{type}/"
-downloaded_file = os.path.join("tmp", f"{type}_main.zip")
+path_download_folder = os.path.join("tmp", f"Xtream_{type}-main")
+downloaded_file = os.path.join("tmp", f"Xtream_{type}")
+
+# create tmp folder
+if not os.path.exists("tmp"):
+    os.makedirs("tmp")
 
 # remove main_xui.tar.gz if it exists
-if os.path.exists(type + "_xui.tar.gz"):
+if os.path.exists("tmp/{type}_xui.tar.gz"):
     os.remove(type + "_xui.tar.gz")
-    print(f"Removed {type}_xui.tar.gz")
+    print(f"Removed old {type}_xui.tar.gz")
 
 
 # remove folder Xtream_main/ if it exists
 if os.path.exists(path_download_folder):
     shutil.rmtree(path_download_folder)
-
-# create tmp folder
-if not os.path.exists("tmp"):
-    os.makedirs("tmp")
 
 # download
 print(f"Download Xtream_{type}")
@@ -52,28 +51,31 @@ download_file(
     downloaded_file,
 )
 
-print(f"Unzip {type}_main.zip")
+print(f"Unzip Xtream_{type}.zip")
 with zipfile.ZipFile(downloaded_file, "r") as zip_ref:
-    zip_ref.extractall(path_download_folder)
+    zip_ref.extractall("tmp")
 
 os.remove(downloaded_file)
 
 print("Removing trash from " + path_download_folder)
 
-if os.path.exists(path_download_folder + ".git"):
-    shutil.rmtree(path_download_folder + ".git")
+if os.path.exists(path_download_folder + "/.git"):
+    shutil.rmtree(path_download_folder + "/.git")
     print("Removed .git from " + path_download_folder)
-if os.path.exists(path_download_folder + ".vscode"):
-    shutil.rmtree(path_download_folder + ".vscode")
+if os.path.exists(path_download_folder + "/.github"):
+    shutil.rmtree(path_download_folder + "/.github")
+    print("Removed .github from " + path_download_folder)
+if os.path.exists(path_download_folder + "/.vscode"):
+    shutil.rmtree(path_download_folder + "/.vscode")
     print("Removed .vscode from " + path_download_folder)
-if os.path.exists(path_download_folder + ".gitignore"):
-    os.remove(path_download_folder + ".gitignore")
+if os.path.exists(path_download_folder + "/.gitignore"):
+    os.remove(path_download_folder + "/.gitignore")
     print("Removed .gitignore from " + path_download_folder)
-if os.path.exists(path_download_folder + ".gitattributes"):
-    os.remove(path_download_folder + ".gitattributes")
+if os.path.exists(path_download_folder + "/.gitattributes"):
+    os.remove(path_download_folder + "/.gitattributes")
     print("Removed .gitattributes from " + path_download_folder)
-if os.path.exists(path_download_folder + "update"):
-    shutil.rmtree(path_download_folder + "update")
+if os.path.exists(path_download_folder + "/update"):
+    shutil.rmtree(path_download_folder + "/update")
     print("Removed update from " + path_download_folder)
 
 # delete .gitkeep everywhere
@@ -87,7 +89,7 @@ print(f"Creating {type}_xui.tar.gz")
 allfile = os.listdir(path_download_folder)
 with tarfile.open(f"tmp/{type}_xui.tar.gz", "w:gz") as tar:
     for file in allfile:
-        tar.add(path_download_folder + file, arcname=os.path.basename(file))
+        tar.add(path_download_folder + "/" + file, arcname=os.path.basename(file))
 
 
 print("Remove folder " + path_download_folder)
