@@ -89,20 +89,20 @@ sudo apt-get install libcurl4-gnutls-dev libbz2-dev libzip-dev
 ```
 Download source
 ```
-wget -O php-7.3.25.tar.gz http://php.net/get/php-7.3.25.tar.gz/from/this/mirror
+wget -O php-7.4.33.tar.gz http://php.net/get/php-7.4.33.tar.gz/from/this/mirror
 ```
 
 ```
-tar -xzvf php-7.3.25.tar.gz
+tar -xzvf php-7.4.33.tar.gz
 ```
 
 ```
-cd php-7.3.25
+cd php-7.4.33
 ```
 
 Configure binaries
 ```
-./configure --prefix=/home/xtreamcodes/bin/php --with-zlib-dir --enable-mbstring --enable-calendar --with-curl --with-gd --disable-rpath --enable-inline-optimization --with-bz2 --with-zlib --enable-sockets --enable-sysvsem --enable-sysvshm --enable-pcntl --enable-mbregex --enable-exif --enable-bcmath --with-mhash --enable-zip --with-pcre-regex --with-pdo-mysql=mysqlnd --with-mysqli=mysqlnd --with-openssl --with-fpm-user=xtreamcodes --with-fpm-group=xtreamcodes --with-libdir=/lib/x86_64-linux-gnu --with-gettext --with-xmlrpc --with-xsl --enable-opcache --enable-fpm --enable-libxml --enable-static --disable-shared --with-mcrypt --with-geoip
+./configure --prefix=/home/xtreamcodes/bin/php --with-fpm-user=xtreamcodes --with-fpm-group=xtreamcodes --enable-gd --with-jpeg --with-freetype --enable-static --disable-shared --enable-opcache --enable-fpm --without-sqlite3 --without-pdo-sqlite --enable-mysqlnd --with-mysqli --with-curl --disable-cgi --with-zlib --enable-sockets --with-openssl --enable-shmop --enable-sysvsem --enable-sysvshm --enable-sysvmsg --enable-calendar --disable-rpath --enable-inline-optimization --enable-pcntl --enable-mbregex --enable-exif --enable-bcmath --with-mhash --with-gettext --with-xmlrpc --with-xsl --with-libxml --with-pdo-mysql --disable-mbregex
 ```
 
 Build binaries
@@ -113,25 +113,25 @@ make
 File source
 
 ```
-/root/php-7.3.25/sapi/cli/php
+/root/php-7.4.33/sapi/cli/php
 to
 /home/xtreamcodes/bin/php/bin/php
 ```
 
 ```
-/root/php-7.3.25/sapi/fpm/php-fpm
+/root/php-7.4.33/sapi/fpm/php-fpm
 to
 /home/xtreamcodes/bin/php/sbin/php-fpm
 ```
 
 ```
-/root/php-7.3.25/sapi/phpdbg/phpdbg
+/root/php-7.4.33/sapi/phpdbg/phpdbg
 to
 /home/xtreamcodes/bin/php/bin/phpdbg
 ```
 
 ```
-/root/php-7.3.25/sapi/cgi/php-cgi
+/root/php-7.4.33/sapi/cgi/php-cgi
 to
 /home/xtreamcodes/bin/php/bin/php-cgi
 ```
