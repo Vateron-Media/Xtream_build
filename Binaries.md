@@ -1,11 +1,15 @@
 # Build binaries file
 
+### Notification
+
+All actions should be performed on the server where xtreamcodes is installed.
+
 ## Index
 
 * [Preassembly](#preassembly)
 * [NGINX](#nginx-binary)
 * [NGINX-rtmp](#nginx-rtmp-binary)
-* [php-fpm](#php-fpm-binary)
+* [php-fpm](#php-binary)
 
 
 ## Preassembly
@@ -82,7 +86,7 @@ Print version
 /root/nginx-1.26.1/objs/nginx -v
 ```
 
-## php binary
+## PHP binary
 Install package 
 ```
 sudo apt-get install libcurl4-gnutls-dev libbz2-dev libzip-dev
@@ -110,28 +114,40 @@ Build binaries
 make
 ```
 
-File source
-
+Install
 ```
-/root/php-7.4.33/sapi/cli/php
-to
-/home/xtreamcodes/bin/php/bin/php
+make install
 ```
 
-```
-/root/php-7.4.33/sapi/fpm/php-fpm
-to
-/home/xtreamcodes/bin/php/sbin/php-fpm
-```
+## Extension
+
+### redis
 
 ```
-/root/php-7.4.33/sapi/phpdbg/phpdbg
-to
-/home/xtreamcodes/bin/php/bin/phpdbg
+/home/xtreamcodes/bin/php/bin/pecl install redis
 ```
 
+Configure redis
 ```
-/root/php-7.4.33/sapi/cgi/php-cgi
-to
-/home/xtreamcodes/bin/php/bin/php-cgi
+enable igbinary serializer support? [no] : yes
+enable lzf compression support? [no] : 
+enable zstd compression support? [no] : 
+enable msgpack serializer support? [no] :
+enable lz4 compression? [no] : 
+use system liblz4? [yes] : 
+```
+
+### maxminddb
+```
+/home/xtreamcodes/bin/php/bin/pecl install maxminddb
+```
+
+### ssh2
+```
+/home/xtreamcodes/bin/php/bin/pecl install ssh2
+```
+
+### igbinary
+```
+/home/xtreamcodes/bin/php/bin/pecl install igbinary
 ```
