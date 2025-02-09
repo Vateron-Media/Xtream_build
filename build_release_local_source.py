@@ -108,8 +108,10 @@ try:
 
     # Создаем архив
     print(f"Creating archive at: {archive_path}")
+    allfile = os.listdir(build_folder)
     with tarfile.open(archive_path, "w:gz") as tar:
-        tar.add(build_folder, arcname=os.path.basename(build_folder))
+        for file in allfile:
+            tar.add(f"{build_folder}/{file}", arcname=os.path.basename(file))
 
     print("Operation completed successfully!")
 
