@@ -4,8 +4,11 @@ Instructions for building executables for XtreamCodes
 ### PECL install package
 ```/home/xtreamcodes/bin/php/bin/pecl install package```
 
-### Build release
-``` sudo python3 create_release.py```
+### Build release MAIN
+``` sudo python3 create_release.py --build main```
+
+### Build release LB
+``` sudo python3 create_release.py --build lb```
 
 ---
 

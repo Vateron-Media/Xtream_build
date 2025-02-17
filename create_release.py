@@ -17,6 +17,7 @@ Key features:
 import os
 import shutil
 import tarfile
+import argparse
 import subprocess
 from pathlib import Path
 
@@ -24,20 +25,15 @@ from pathlib import Path
 # Configuration Constants
 # --------------------------
 
-# Build type (used in archive naming)
-BUILD_TYPE = "main"
-
 # Directory paths
 SCRIPT_DIR = Path(__file__).resolve().parent  # Where this script lives
 LOCAL_TMP = SCRIPT_DIR / "tmp"  # Local temporary storage
 SYSTEM_TMP = Path("/tmp")  # System temp directory
 
-# Build artifacts paths
-RELEASE_PATH = SYSTEM_TMP / f"Xtream_{BUILD_TYPE}"  # Full release staging area
+# Build artifacts paths (will be constructed dynamically)
 UPDATE_PATH = SYSTEM_TMP / "Xtream_Update"  # Update package staging area
 
 # Output file paths
-RELEASE_ARCHIVE_PATH = LOCAL_TMP / f"{BUILD_TYPE}_xui.tar.gz"  # Full release archive
 UPDATE_ARCHIVE_PATH = LOCAL_TMP / "update.tar.gz"  # Update archive
 DELETE_PHP = LOCAL_TMP / "delete.php"  # File deletion script
 
@@ -45,7 +41,6 @@ DELETE_PHP = LOCAL_TMP / "delete.php"  # File deletion script
 # Permission Configuration
 # --------------------------
 
-# Shell commands for setting filesystem permissions
 PERMISSION_COMMANDS = [
     "sudo find {build_folder} -type d -exec chmod 755 {{}} \\;",
     "sudo find {build_folder} -type f -exec chmod 550 {{}} \\;",
@@ -65,7 +60,6 @@ PERMISSION_COMMANDS = [
 # File Cleanup Configuration
 # --------------------------
 
-# Items to remove from the build (development artifacts)
 REMOVE_ITEMS = [
     (".git", "dir"),
     (".github", "dir"),
@@ -167,7 +161,6 @@ def remove_gitkeep_files(build_folder):
 def set_permissions(build_folder):
     """Apply security permissions to build directory"""
     for command in PERMISSION_COMMANDS:
-        # Format command with actual build path
         command_with_path = command.format(build_folder=build_folder)
         subprocess.run(command_with_path, shell=True, check=False)
     print("Permissions set for all files and directories")
@@ -237,32 +230,40 @@ def create_delete_php(repo_path, last_version, output_path):
 # --------------------------
 
 
-def create_release(source_path):
+def create_release(source_path, build_type):
     """Create full release package"""
     try:
+        release_path = SYSTEM_TMP / f"Xtream_{build_type}"
+        release_archive_path = LOCAL_TMP / f"{build_type}_xui.tar.gz"
+
         validate_source_path(source_path)
-        cleanup_previous_artifacts(RELEASE_ARCHIVE_PATH, RELEASE_PATH)
-        copy_source_files(source_path, RELEASE_PATH)
-        remove_unnecessary_files(RELEASE_PATH)
-        remove_gitkeep_files(RELEASE_PATH)
-        set_permissions(RELEASE_PATH)
-        create_archive(RELEASE_PATH, RELEASE_ARCHIVE_PATH)
+        cleanup_previous_artifacts(release_archive_path, release_path)
+        copy_source_files(source_path, release_path)
+        remove_unnecessary_files(release_path)
+        remove_gitkeep_files(release_path)
+        set_permissions(release_path)
+        create_archive(release_path, release_archive_path)
         print("Release creation completed successfully!")
     except Exception as e:
         print(f"Error: {str(e)}")
         exit(1)
     finally:
-        cleanup(RELEASE_PATH)
+        cleanup(release_path)
 
 
 def create_update(source_path, last_update):
     """Create incremental update package"""
     try:
-        # Get changed files and add update scripts
         changed_files = get_changed_files(source_path, last_update)
-        changed_files.update({"tools/update_bd.php", "update.py", "tools/update.php"})
+        changed_files.update(
+            {
+                "includes/cli_tool/update_bd.php",
+                "update.py",
+                "includes/cli_tool/update.php",
+            }
+        )
 
-        # Process files
+        cleanup_previous_artifacts(UPDATE_ARCHIVE_PATH, UPDATE_PATH)
         copy_files(source_path, UPDATE_PATH, changed_files)
         set_permissions(UPDATE_PATH)
         remove_unnecessary_files(UPDATE_PATH)
@@ -281,18 +282,23 @@ def create_update(source_path, last_update):
 
 def main():
     """Main execution flow"""
+    parser = argparse.ArgumentParser(description="Xtream Updater Script")
+    parser.add_argument(
+        "--build",
+        default="main",
+        help="Build type used in archive naming (default: main)",
+    )
+    args = parser.parse_args()
+
     print_header()
 
-    # Get user input
     last_update = input("Version of the previous release: ").strip()
     source_path = Path(input("Enter path to Xtream source folder: ").strip())
 
-    # Validate and prepare
     validate_inputs(last_update, source_path)
-    create_directories(LOCAL_TMP, RELEASE_PATH, UPDATE_PATH)
+    create_directories(LOCAL_TMP, SYSTEM_TMP / f"Xtream_{args.build}", UPDATE_PATH)
 
-    # Execute build processes
-    create_release(source_path)
+    create_release(source_path, args.build)
     create_update(source_path, last_update)
 
     print("All operations completed successfully!")
